@@ -45,15 +45,15 @@
 #define CPUS_DOWN_RATE			2
 
 #ifdef CONFIG_MACH_LGE
-#define FREQ_RESPONSIVENESS		1512000
+#define FREQ_RESPONSIVENESS		1134000
 #else
-#define FREQ_RESPONSIVENESS		1512000
+#define FREQ_RESPONSIVENESS		1134000
 #endif
 
 /* Pump Inc/Dec for all cores */
-#define PUMP_INC_STEP_AT_MIN_FREQ	6
+#define PUMP_INC_STEP_AT_MIN_FREQ	1
 #define PUMP_INC_STEP			1
-#define PUMP_DEC_STEP			1
+#define PUMP_DEC_STEP			2
 
 static void do_alucard_timer(struct work_struct *work);
 
