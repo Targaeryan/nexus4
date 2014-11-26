@@ -12,7 +12,7 @@ else
 	export ENABLE_GRAPHITE=true
 fi
 kernel="defcon"
-version="96u-unleashed"
+version="97u-unleashed"
 rom="CM11"
 variant="mako"
 ramdisk=ramdisk
@@ -156,8 +156,19 @@ if [ -f arch/arm/boot/"$kerneltype" ]; then
 	rm ./kernel/"$kerneltype"
 	rm arch/arm/boot/"$kerneltype"
 	echo "Done..."
-	exit 0;
+	echo "Output zip: $build/$kernel-$version-"$rom"_$variant.zip"
+read -p "Push to device (y/n)? : " cchoice
+	case "$cchoice" in
+		y|Y )
+			adb push $build/$kernel-$version-"$rom"_$variant.zip /sdcard/;;
+		n|N )
+			exit 0;;
+		* )
+			echo "Invalid...";;
+	esac
+	
 else
 	echo "No $kerneltype found..."
 	exit 0;
 fi
+
