@@ -8,7 +8,7 @@ cat << CTAG
     elements:[
 	{ SLiveLabel:{
 		title:"Scaling Frequencies",
-		description: "Scaling max-min frequencies are affected by thermal engine/driver, mpdecision hotplug driver and CPU Boost driver. You may enable and use MSM Limiter Driver below to make sure scaling frequencies are desired ranges MOST of the time. We do let other drivers affect scaling frequencies because this manipulation helps to achieve performance without compromising stability. Below live monitor reflects actual scaling max, min and current frequencies in MHz per CPU core.",
+		description: "Scaling max-min frequencies are affected by thermal engine/driver, mpdecision hotplug driver and CPU Boost driver. You may enable and use MSM Limiter Driver below to make sure scaling frequencies are desired ranges MOST of the time. We do let other drivers affect scaling frequencies because this manipulation helps to achieve performance without compromising stability. Below live monitor reflects actual scaling max and min frequencies in MHz per CPU core.",
 		refresh:1000,
 		action:"live SCALINGFREQ"
 	}},
@@ -274,6 +274,7 @@ cat << CTAG
 				do:REFRESH,
 				to:"/sys/devices/system/cpu/cpufreq"
 			}
+
 		]
         }},
         { SOptionList:{
@@ -379,7 +380,11 @@ cat << CTAG
 						"cpu_utilization",
 						"sampling_rate_min",
 						"up_threshold_h",
-						"up_threshold_l"
+						"up_threshold_l",
+						"multi_phase_freq_tbl",
+						"profile_list",
+						"version_profiles",
+						"profile"
 					]
 				}
 			}
@@ -389,4 +394,3 @@ cat << CTAG
     ]
 }
 CTAG
-
