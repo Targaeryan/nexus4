@@ -1282,8 +1282,6 @@ struct task_struct {
 #endif
 	unsigned long atomic_flags; /* Flags needing atomic access. */
 
-	unsigned long atomic_flags; /* Flags needing atomic access. */
-
 	pid_t pid;
 	pid_t tgid;
 
