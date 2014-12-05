@@ -99,7 +99,7 @@ void dvfs_stress_test(struct work_struct *work)
 	if(freq_index<0)
 		freq_index=max_cpu_freq_index;
 	if(stress_test_enable)
-		queue_delayed_work(dvfs_test_work_queue, &stress_test,1*HZ);
+		mod_delayed_work(dvfs_test_work_queue, &stress_test,1*HZ);
 	return ;
 }
 
@@ -185,7 +185,7 @@ static int start_test(struct cpufreq_policy *policy, unsigned int enable)
 
 		freq_index=max_cpu_freq_index=i-1;
 		stress_test_enable=true;
-		queue_delayed_work(dvfs_test_work_queue, &stress_test,1*HZ);
+		mod_delayed_work(dvfs_test_work_queue, &stress_test,1*HZ);
 	}else
 		stress_test_enable=false;
 	return true;
