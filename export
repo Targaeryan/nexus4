@@ -2,17 +2,17 @@
 export ARCH=arm
 if [ "$1" == "local" ]; then
 	echo "Local Build"
-	build=/home/defcon/Desktop
+	build=/home/kyle/Desktop/Unleashed
 	export CROSS_COMPILE=/media/Stuff/dev/linaro_toolchains_2014/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2014.11/bin/arm-cortex_a15-linux-gnueabihf-
 	export ENABLE_GRAPHITE=true
 else
 	echo "Remote Build"
-	build=/home/defcon/downloads/
+	build=/home/kyle/Desktop/Unleashed
 	export CROSS_COMPILE=/media/Stuff/dev/linaro_toolchains_2014/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2014.11/bin/arm-cortex_a15-linux-gnueabihf-
 	export ENABLE_GRAPHITE=true
 fi
 kernel="defcon"
-version="98u-unleashed"
+version="99u-unleashed"
 rom="AOSP"
 variant="mako"
 ramdisk=ramdisk
