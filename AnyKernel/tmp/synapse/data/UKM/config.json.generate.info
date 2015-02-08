@@ -9,16 +9,16 @@ cat << CTAG
 				},
 			}},	
 				{ SDescription:{
-					description:"Welcome to the Universal Kernel Manager."
+					description:"Welcome to Unleashed Kernel By defcon"
 				}},
 				{ SDescription:{
-					description:"Created by <a href='http://forum.xda-developers.com/member.php?u=5658634'>apb_axel</a>."
+					description:"Donate to <a href='http://forum.xda-developers.com/donatetome.php?u=1316336'>defcon</a>."
 				}},
 				{ SDescription:{
-					description:"Version 3.5"
+					description:"UKM Version 3.6.1"
 				}},
 				{ SDescription:{
-					description:"XDA Link: <a href='http://forum.xda-developers.com/android/software/zip-synapse-script-universal-kernel-t2736986'>HERE</a>"
+					description:"UKM XDA Link: <a href='http://forum.xda-developers.com/android/software/zip-synapse-script-universal-kernel-t2736986'>HERE</a>"
 				}},
 				{ SPane:{
 					title:"Special thanks to"

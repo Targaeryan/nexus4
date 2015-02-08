@@ -1,5 +1,6 @@
 #!/sbin/sh
 rm -f /system/etc/init.d/UKM;
+rm -rf /data/UKM
 rm -f /system/xbin/uci;
 cp -f /tmp/synapse/data/UKM/UKM /system/etc/init.d/UKM;
 cp -f /tmp/synapse/data/UKM/uci /system/xbin/uci;

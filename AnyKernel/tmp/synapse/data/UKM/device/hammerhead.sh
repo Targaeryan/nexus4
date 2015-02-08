@@ -100,7 +100,7 @@ case "$1" in
 		$BB echo "/proc/sys/net/ipv4/tcp_congestion_control";
 	;;
 	GPUFrequencyList)
-		for GPUFREQ in `$BB cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies | tr ' ' '\n' | sort -u` ; do
+		for GPUFREQ in `$BB cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies | $BB tr ' ' '\n' | $BB sort -u` ; do
 		LABEL=$((GPUFREQ / 1000000));
 			$BB echo "$GPUFREQ:\"${LABEL} MHz\", ";
 		done;
@@ -210,8 +210,14 @@ case "$1" in
 		$BB echo "$CPU_C°C | $CPU_F°F";
 	;;
 	LiveGPUFrequency)
-		GPUFREQ="$((`$BB cat /sys/class/kgsl/kgsl-3d0/gpuclk` / 1000000)) MHz";
-		$BB echo "$GPUFREQ";
+		GPUCURFREQ=/sys/class/kgsl/kgsl-3d0/gpuclk;
+		
+		if [ -f "$GPUCURFREQ" ]; then
+			GPUFREQ="$((`$BB cat $GPUCURFREQ` / 1000000)) MHz";
+			$BB echo "$GPUFREQ";
+		else
+			$BB echo "-";
+		fi;
 	;;
 	LiveMemory)
 		while read TYPE MEM KB; do
@@ -339,36 +345,44 @@ case "$1" in
 		$BB echo $((NUM_PWRLVL - `$BB cat $2`));
 	;;
 	SetGPUGovernor)
-		POLICY=/sys/class/kgsl/kgsl-3d0/pwrscale/policy;
+		if [ -f "/sys/class/kgsl/kgsl-3d0/pwrscale/policy" ]; then
+			POLICY=/sys/class/kgsl/kgsl-3d0/pwrscale/policy;
 
-		if [[ ! -z $3 ]]; then
-			case $3 in
-				ondemand)
-					$BB echo "trustzone" > $POLICY;
-					$BB echo $3 > $2;
-				;;
-				performance)
-					$BB echo "trustzone" > $POLICY;
-					$BB echo $3 > $2;
-				;;
-				simple)
-					$BB echo "trustzone" > $POLICY;
-					$BB echo $3 > $2;
-				;;
-				interactive)
-					$BB echo "trustzone" > $POLICY;
-					$BB echo $3 > $2;
-				;;
-				conservative)
-					$BB echo $3 > $POLICY;
-				;;
-			esac;
-		fi;
+			if [[ ! -z $3 ]]; then
+				case $3 in
+					ondemand)
+						$BB echo "trustzone" > $POLICY;
+						$BB echo $3 > $2;
+					;;
+					performance)
+						$BB echo "trustzone" > $POLICY;
+						$BB echo $3 > $2;
+					;;
+					simple)
+						$BB echo "trustzone" > $POLICY;
+						$BB echo $3 > $2;
+					;;
+					interactive)
+						$BB echo "trustzone" > $POLICY;
+						$BB echo $3 > $2;
+					;;
+					conservative)
+						$BB echo $3 > $POLICY;
+					;;
+				esac;
+			fi;
 
-		if [ `$BB cat $POLICY` = "trustzone" ]; then
+			if [ `$BB cat $POLICY` = "trustzone" ]; then
+				$BB echo `$BB cat $2`;
+			else
+				$BB echo `$BB cat $POLICY`;
+			fi;
+		elif [ -f "/sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor" ]; then
+			if [[ ! -z $3 ]]; then
+				$BB echo $3 > $2 2> /dev/null;
+			fi;
+		
 			$BB echo `$BB cat $2`;
-		else
-			$BB echo `$BB cat $POLICY`;
 		fi;
 	;;
 	TCPCongestionList)
